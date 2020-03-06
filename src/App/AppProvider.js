@@ -52,4 +52,4 @@ export class AppProvider extends React.Component {
             </AppContext.Provider>
         )
     }
-}
+};
