@@ -1,22 +1,45 @@
 import React from 'react';
+import _ from 'lodash';
 
 const cc = require('cryptocompare')
 
 export const AppContext = React.createContext();
+
+const MAX_FAVORITES = 12;
 
 export class AppProvider extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             page: 'Settings',
+            favorites: ['BTC', 'ETH', 'XMR', 'DOGE'],
             ...this.savedSettings(),
             setPage: this.setPage,
-            confirmFavorites: this.confirmFavorites
+            addCoin: this.addCoin,
+            removeCoin: this.removeCoin,
+            isInFavorites: this.isInFavorites,
+            confirmFavorites: this.confirmFavorites,
+            setFilteredCoins: this.setFilteredCoins
         }
     }
 
     componentDidMount = () =>{
         this.fetchCoins();
+    }
+
+    isInFavorites = key => _.includes(this.state.favorites, key)
+
+    addCoin = key => {
+        let favorites = [...this.state.favorites];
+        if(favorites.length < MAX_FAVORITES){
+            favorites.push(key);
+            this.setState({favorites});
+        }
+    }
+
+    removeCoin = key => {
+        let favorites = [...this.state.favorites];
+        this.setState({favorites: _.pull(favorites, key)})
     }
 
     fetchCoins = async () => {
@@ -31,7 +54,7 @@ export class AppProvider extends React.Component {
         });
 
         localStorage.setItem('cryptoBoard', JSON.stringify({
-            test: 'YOOOOYO'
+            favorites: this.state.favorites
         }));
     }
 
@@ -40,10 +63,13 @@ export class AppProvider extends React.Component {
         if(!cryptoBoardData){
             return {page: 'Settings', firstVisit: true}
         }
-        return {};
+        let {favorites} = cryptoBoardData;
+        return favorites;
     }
 
     setPage = page => this.setState({page})
+
+    setFilteredCoins = (filteredCoins) => this.setState({filteredCoins})
 
     render(){
         return(

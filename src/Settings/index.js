@@ -3,7 +3,8 @@ import WelcomeMessage from './WelcomeMessage';
 import ConfirmButton from './ConfirmButton';
 import Page from '../Shared/Page';
 import CoinGrid from "./CoinGrid";
-import { Grid } from "@material-ui/core";;
+import { Grid } from "@material-ui/core";
+import Search from './Search';
 
 export default function(){
     return(
@@ -12,8 +13,14 @@ export default function(){
                 <Grid item xs={12}>
                     <WelcomeMessage/>
                 </Grid>
+                <Grid item xs={12}>
+                    <CoinGrid topSection />
+                </Grid>
                 <Grid item xs={2}>
                     <ConfirmButton/>
+                </Grid>
+                <Grid item xs={12}>
+                    <Search/>
                 </Grid>
                 <Grid item xs={12}>
                     <CoinGrid/>
