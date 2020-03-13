@@ -2,7 +2,7 @@ import React from 'react';
 import Page from '../Shared/Page';
 import PriceGrid from "../Dashboard/PriceGrid";
 import CoinSpotlight from "./CoinSpotlight";
-
+import PriceChart from './PriceChart';
 import { Grid } from "@material-ui/core";
 
 
@@ -15,7 +15,7 @@ export default function(){
                     <CoinSpotlight/>
                 </Grid>
                 <Grid item xs={9}>
-                    knkjnfwnkn
+                    <PriceChart/>
                 </Grid>
             </Grid>      
          </Page>
