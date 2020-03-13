@@ -12,7 +12,7 @@ export default function () {
                 <Grid container spacing={3}>
                         {prices.map((price, index) => (
                             <Grid item xs={2}>
-                                <PriceTile index={index} price={price}/>
+                                <PriceTile key={`priceTile-${index}`} index={index} price={price}/>
                             </Grid>
                         ))}
                 </Grid>

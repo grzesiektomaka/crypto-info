@@ -2,14 +2,20 @@ import React from 'react';
 import HighchartsConfig from './HighChartsConfig';
 import {Tile} from '../Shared/Tile';
 import {AppContext} from '../App/AppProvider';
-import ReactHighCharts from 'react-highcharts';
+import ReactHighcharts from 'react-highcharts';
+import HighchartsTheme from './HighChartsTheme';
+
+ReactHighcharts.Highcharts.setOptions(HighchartsTheme);
 
 export default function(){
     return(
         <AppContext.Consumer>
-            {({}) => 
+            {({historical}) => 
                 <Tile>
-                    <ReactHighCharts config={HighchartsConfig()}/>
+                    {historical ? 
+                        <ReactHighcharts config={HighchartsConfig(historical)}/>
+                        : <div>Loading Historical Data</div>
+                    }
                 </Tile>
             }
         </AppContext.Consumer>

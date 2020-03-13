@@ -15,16 +15,19 @@ const ControllButtonElem = styled.div`
     cursor: pointer;
     ${props => props.active && css`
         color: blue;
+    `};
+    ${props => props.hidden && css`
+        display: none;
     `}
 `
-
 function ControllButton({name}){
     return(
         <AppContext.Consumer>
-            {({page, setPage}) => (
+            {({firstVisit, page, setPage}) => (
                 <ControllButtonElem 
                     active={page === name}
                     onClick={() => setPage(name)}
+                    hidden={firstVisit && name === 'Dashboard'}
                 >
                      {name}
                  </ControllButtonElem>
