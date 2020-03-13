@@ -19,7 +19,8 @@ export class AppProvider extends React.Component {
             removeCoin: this.removeCoin,
             isInFavorites: this.isInFavorites,
             confirmFavorites: this.confirmFavorites,
-            setFilteredCoins: this.setFilteredCoins
+            setFilteredCoins: this.setFilteredCoins,
+            setCurrentFavorite: this.setCurrentFavorite
         }
     }
 
@@ -70,25 +71,38 @@ export class AppProvider extends React.Component {
     } 
 
     confirmFavorites = () => {
+        let currentFavorite = this.state.favorites[0];
         this.setState({
             firstVisit: false,
-            page: 'Dashboard'
+            page: 'Dashboard',
+            currentFavorite
         }, () => { 
             this.fetchPrices(); 
         });
 
         localStorage.setItem('cryptoBoard', JSON.stringify({
-            favorites: this.state.favorites
+            favorites: this.state.favorites,
+            currentFavorite
         }));
     }
+
+    setCurrentFavorite = (sym) => {
+        this.setState({
+            currentFavorite: sym
+        });
+        localStorage.setItem('cryptoBoard', JSON.stringify({
+            ...JSON.parse(localStorage.getItem('cryptoBoard')),
+            currentFavorite: sym
+        }))
+    } 
 
     savedSettings(){
         let cryptoBoardData = JSON.parse(localStorage.getItem('cryptoBoard'));
         if(!cryptoBoardData){
             return {page: 'Settings', firstVisit: true}
         }
-        let {favorites} = cryptoBoardData;
-        return favorites;
+        let {favorites, currentFavorite} = cryptoBoardData;
+        return {favorites, currentFavorite};
     }
 
     setPage = page => this.setState({page})

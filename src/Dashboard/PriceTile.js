@@ -1,7 +1,8 @@
 import React from 'react';
 import styled, {css} from 'styled-components';
 import {SelectableTile} from '../Shared/Tile'; 
-import {fontSize3, fontSizeBig} from '../Shared/Styles';
+import {fontSize3, fontSizeBig, greenBoxShadow} from '../Shared/Styles';
+import {AppContext} from "../App/AppProvider";
 import { Grid } from "@material-ui/core";
 
 
@@ -24,6 +25,11 @@ const PriceTileStyled = styled(SelectableTile)`
     ${props => props.compact && css`
         ${fontSize3}
     `}
+    
+    ${props => props.currentFavorite && css`
+        ${greenBoxShadow};
+        pointer-events: none;
+    `}
 `
 
 function ChangePercent({data}){
@@ -34,9 +40,10 @@ function ChangePercent({data}){
     );
 }
 
-function PriceTile({sym, data}){
+function PriceTile({sym, data, currentFavorite, setCurrentFavorite}){
+
     return (
-        <PriceTileStyled>
+        <PriceTileStyled onClick={setCurrentFavorite} currentFavorite={currentFavorite}>
             <Grid container>
                 <Grid item xs={7}>
                         <div>{sym}</div>
@@ -54,9 +61,9 @@ function PriceTile({sym, data}){
     );
 }
 
-function PriceTileCompact({sym, data}){
+function PriceTileCompact({sym, data, currentFavorite, setCurrentFavorite}){
     return (
-        <PriceTileStyled compact>
+        <PriceTileStyled onClick={setCurrentFavorite} compact currentFavorite={currentFavorite}>
             <Grid container>
                 <Grid item xs={2}>
                         <div>{sym}</div>
@@ -79,6 +86,15 @@ export default function({price, index}){
     let data = price[sym]['USD'];
     let TileClass = index < 6 ? PriceTile : PriceTileCompact;
     return (
-            <TileClass sym={sym} data={data}/>
+        <AppContext.Consumer>
+            {({currentFavorite, setCurrentFavorite}) =>
+                <TileClass 
+                    sym={sym} 
+                    data={data} 
+                    currentFavorite={currentFavorite === sym}
+                    setCurrentFavorite={() => setCurrentFavorite(sym)}
+                />
+            }
+        </AppContext.Consumer>
     )
 }
