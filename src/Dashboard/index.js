@@ -9,8 +9,9 @@ import { Grid } from "@material-ui/core";
 export default function(){
     return(
         <Page name="Dashboard">
+            <PriceGrid/>
             <Grid container>
-                <PriceGrid/>
+                <Grid item xs={12}/>
                 <Grid item xs={3}>
                     <CoinSpotlight/>
                 </Grid>

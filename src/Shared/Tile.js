@@ -6,6 +6,7 @@ export const Tile = styled.div`
     ${subtleBoxShadow};
     ${lightBlueBackground};
     padding: 10px;
+    border-radius: 10px;
 `
 
 export const SelectableTile = styled(Tile)`
@@ -24,5 +25,5 @@ export const DeletableTile = styled(SelectableTile)`
 export const DisabledTile = styled(Tile)`
    pointer-events: none;
    opacity: 0.4;
-   background-color: red;
+   background-color: #5389b8;
 `

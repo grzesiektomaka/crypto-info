@@ -11,7 +11,7 @@ export default function(historical){
         },
     
         xAxis: {
-            type: 'datetime '
+            type: 'datetime'
         },
     
         legend: {

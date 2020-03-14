@@ -5,7 +5,7 @@ import { Grid } from "@material-ui/core";
 import CoinTile from "./CoinTile";
 
 export const CoinGridStyled = styled.div`
-    margin-top: 5em;
+    margin-top: 8em;
 `
 function getLowerSectionCoins(coinList, filteredCoins){
     return (filteredCoins && Object.keys(filteredCoins)) || Object.keys(coinList).slice(0, 100)
